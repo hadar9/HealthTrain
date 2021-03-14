@@ -1,2 +1,5 @@
-node_modules
-config
+Server/env/
+Server/node_modules
+Server/config/default.json
+.eslintrc.json
+
