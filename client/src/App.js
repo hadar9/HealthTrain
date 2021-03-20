@@ -5,14 +5,22 @@ import Register from "./components/Login and Register/Register";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./UI/Theme";
 import HomePage from "./components/HomePage/HomePage";
+import Navbar from "./UI/Navbar/Navbar";
 
 
 const App = () => {
+
+const routing = [
+  { to: "/Login", name: "Login"},
+  { to: "/Register", name: "Register"},
+]
+
  return (
   <ThemeProvider theme={theme}>
     <Router>
       <>
         <div style={{ marginBottom: 80 }}>
+          <Navbar routing={routing}/>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/Login" component={Login} />
