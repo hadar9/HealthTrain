@@ -9,6 +9,8 @@ import {
 } from "@material-ui/core";
 import MyTextField from "../Input/Input";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios"
+import { useHistory } from "react-router";
 
 
 
@@ -27,6 +29,7 @@ const useStyles = makeStyles({
 
 const Register = () => {
   const classes = useStyles();
+  const history = useHistory()
 
  
   return (
@@ -39,14 +42,18 @@ const Register = () => {
             </Typography>
             <Formik
               initialValues={{
-                email: "",
                 name: "",
+                email: "",
                 password: "",
                 repass: "",
               }}
             
               onSubmit={async (values, actions) => {
-              
+
+                const res = await axios.post("api/register/registerUser", values)
+                console.log(res)
+                history.push("/")
+
                 try {
                 
                 } catch (e) {
@@ -59,22 +66,19 @@ const Register = () => {
                 <Form>
                   <MyTextField key="1" name="name" type="text" label="Name " />
                   <br />
-                  <MyTextField
-                    key="3"
+                  <MyTextField            
                     name="email"
                     type="email"
                     label="Email "
                   />
                   <br />
-                  <MyTextField
-                    key="4"
+                  <MyTextField      
                     name="password"
                     type="password"
                     label="Password "
                   />
                   <br />
-                  <MyTextField
-                    key="5"
+                  <MyTextField                
                     name="repass"
                     type="password"
                     label="Renter password "

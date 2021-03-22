@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  name: {
+const DietSchema = new Schema({
+  userID: {
     type: String,
     required: true,
   },
@@ -30,4 +30,4 @@ const UserSchema = new Schema({
 });
 
 
-module.exports = mongoose.model("users", UserSchema);
+module.exports = mongoose.model("diets", DietSchema);

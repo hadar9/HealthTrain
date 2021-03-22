@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
     .email("Email not valid")
     .required("Email is required"),
   password: Yup.string()
-    .min(5, "Password must be 5 characters or longer")
+    .min(4, "Password must be 4 characters or longer")
     .required("password is required"),
 });
 
@@ -73,9 +73,9 @@ const Login = () => {
                   try {
                     const res = await axios.post("/api/login/loginUser", values);
                     const { token } = res.data;
-                    dispatch(setUser(token));
+                    dispatch(setUser({user: token}));
                     if (user.user.rank === 1 || user.user.rank === 0) {
-                      history.push("/TrainerHomePage");
+                      history.push("/");
                     } else {
                       console.log(user.user);
                       history.push("/");
