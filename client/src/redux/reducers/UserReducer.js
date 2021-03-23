@@ -4,14 +4,13 @@ import jwt_decode from "jwt-decode";
 export const setUser = createAction("setUser");
 export const logout = createAction("logout");
 export const setToken = createAction("setToken");
+export const setNewuser = createAction("setNewuser");
 
 
 
 const initialState = {
   user: null,
   token: null,
-
-
 };
 
 export const UserReducer = createReducer(initialState, {

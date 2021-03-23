@@ -7,6 +7,8 @@ import theme from "./UI/Theme";
 import HomePage from "./components/HomePage/HomePage";
 import Navbar from "./UI/Navbar/Navbar";
 import { useSelector } from "react-redux";
+import { Diet } from "./components/Diet/Diet";
+import { FoodDiary } from "./components/FoodDiary/FoodDiary";
 
 
 const App = () => {
@@ -18,7 +20,9 @@ const routing = [
 ] 
 
 const loggedInRoutes = [
-  {to: "/", name: "HomePage"}
+  {to: "/", name: "HomePage"},
+  {to: "/Diet", name: "Diet"},
+  {to: "/FoodDiary", name: "FoodDiary"},
 ]
 
  return (
@@ -31,6 +35,8 @@ const loggedInRoutes = [
             <Route exact path="/" component={HomePage} />
             <Route exact path="/Login" component={Login} />
             <Route exact path="/Register" component={Register} />
+            <Route exact path="/Diet" component={Diet} />
+            <Route exact path="/FoodDiary" component={FoodDiary} />
           </Switch>
         </div>     
       </>

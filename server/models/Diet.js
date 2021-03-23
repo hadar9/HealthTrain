@@ -2,30 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const DietSchema = new Schema({
-  userID: {
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+    },
+  nutrition: {
     type: String,
-    required: true,
   },
-  email: {
-    type: String,
-    lowercase: true,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  rank: {
+  calories: {
     type: Number,
-    default: 2,
   },
-  active : {
-    type: Number,
-    default: 1
-
-  }
-
  
 });
 

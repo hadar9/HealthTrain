@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import {
   Card,
@@ -11,7 +11,31 @@ import MyTextField from "../Input/Input";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios"
 import { useHistory } from "react-router";
+import MySelect from "../Input/MySelect";
+import * as Yup from "yup";
 
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Name is required"),
+  email: Yup.string()
+    .email("Email not valid")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(4, "Password must be 4 characters or longer")
+    .required("password is required"),
+  repass: Yup.string()
+    .min(4, "Password must be 4 characters or longer")
+    .required("password is required"),
+  height: Yup.number()
+    .required("Height is required"),
+  weight: Yup.number()
+    .required("Weight is required"),
+  age: Yup.number()
+    .min(18, "Age must be 18 or higher")
+    .max(80, "Age must be 80 or lower")
+    .required("Age is required"),
+});
 
 
 const useStyles = makeStyles({
@@ -25,6 +49,9 @@ const useStyles = makeStyles({
     backgroundColor: "#202020",
     color: "white",
   },
+  fields : {
+    marginBottom : "1rem"
+  }
 });
 
 const Register = () => {
@@ -46,16 +73,23 @@ const Register = () => {
                 email: "",
                 password: "",
                 repass: "",
+                height: 0,
+                weight: 0,
+                gender: 0,
+                age: 0,
               }}
-            
+              validationSchema={validationSchema}
               onSubmit={async (values, actions) => {
-
-                const res = await axios.post("api/register/registerUser", values)
-                console.log(res)
-                history.push("/")
-
                 try {
-                
+                  console.log(values)
+                  values.gender = values.gender ? "Female" : "Male"
+                  const res = await axios.post("api/register/registerUser", values)
+                  console.log(res)
+        
+                  history.push("/Login")
+                  return
+ 
+  
                 } catch (e) {
                   console.log(e);
                 }
@@ -64,24 +98,54 @@ const Register = () => {
             >
               {(values, isSubmitting) => (
                 <Form>
-                  <MyTextField key="1" name="name" type="text" label="Name " />
+                  <MyTextField className={classes.fields} name="name" type="text" label="Name " />
                   <br />
-                  <MyTextField            
+                  <MyTextField 
+                    className={classes.fields}           
                     name="email"
                     type="email"
                     label="Email "
                   />
                   <br />
-                  <MyTextField      
+                  <MyTextField   
+                    className={classes.fields}   
                     name="password"
                     type="password"
                     label="Password "
                   />
                   <br />
-                  <MyTextField                
+                  <MyTextField     
+                    className={classes.fields}           
                     name="repass"
                     type="password"
                     label="Renter password "
+                  />
+                  <br />
+                  <MyTextField  
+                    className={classes.fields}              
+                    name="height"
+                    type="number"
+                    label="Height "
+                  />
+                  <br />
+                  <MyTextField       
+                    className={classes.fields}         
+                    name="weight"
+                    type="number"
+                    label="Weight "
+                  />
+                  <br />
+                  <MySelect   
+                    className={classes.fields}            
+                    name="gender"
+                    label="Gender "
+                  />
+                  <br />
+                  <MyTextField  
+                    className={classes.fields}              
+                    name="age"
+                    type="number"
+                    label="Age "
                   />
                   <br />
                 
