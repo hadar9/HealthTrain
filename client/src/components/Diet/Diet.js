@@ -1,9 +1,49 @@
-import React from 'react'
+import { Button } from '@material-ui/core'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 export const Diet = () => {
+    const user = useSelector(state => state.user)
+    const [diet, setDiet] = useState(null)
+    const [isDiet, setIsDiet] = useState(true)
+
+    const handleClick = async () => {
+        const res = await axios.get(`api/diet/createDiet/${user.user.id}`)
+        console.log(res.data)
+    }
+
+    useEffect(() => {
+        const fetchDiet = async () => {
+            try {
+                console.log(user.user)
+                const res = await axios.get(`api/diet/getDiet/${user.user.id}`)
+                console.log(res.data)
+                if(res.data.error){
+                    setDiet("No diet made for you yet")
+                    setIsDiet(false)
+                    console.log(res.data.error)
+                }
+                if(res.data.nutrition){
+                    setDiet(res.data.nutrition)
+                    setIsDiet(true)
+                }
+                   
+            }
+            catch(e){
+                console.log(e)
+            }
+        }
+        
+        fetchDiet()
+
+    }, [])
+
     return (
         <div>
-            Diet
+            Diet <br/>
+            {diet ? diet : null} <br/>
+            {isDiet ? null : <Button onClick={()=>handleClick()} classes={{root : "textSizeSmall"}}>Create new diet</Button>}
         </div>
     )
 }
