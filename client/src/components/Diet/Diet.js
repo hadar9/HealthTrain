@@ -2,6 +2,8 @@ import { Button } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { BoxLoading } from 'react-loadingg';
+import { SemipolarLoading } from 'react-loadingg';
 
 export const Diet = () => {
     const user = useSelector(state => state.user)
@@ -25,7 +27,7 @@ export const Diet = () => {
                     console.log(res.data.error)
                 }
                 if(res.data.nutrition){
-                    setDiet(res.data.nutrition)
+                    setDiet(JSON.stringify(res.data.nutrition))
                     setIsDiet(true)
                 }
                    
@@ -44,6 +46,7 @@ export const Diet = () => {
             Diet <br/>
             {diet ? diet : null} <br/>
             {isDiet ? null : <Button onClick={()=>handleClick()} classes={{root : "textSizeSmall"}}>Create new diet</Button>}
+            {isDiet ? null : <SemipolarLoading />};
         </div>
     )
 }

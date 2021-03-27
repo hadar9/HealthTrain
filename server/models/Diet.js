@@ -6,12 +6,27 @@ const DietSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
     },
-  nutrition: {
-    type: String,
-  },
-  calories: {
-    type: Number,
-  },
+    calories: {
+      type: Number,
+    },
+    nutrition: {
+      meals : [
+        {
+          mealName : {type: String},
+          foodItems : [
+            {
+              name : {type : String},
+              amount : {type : Number},
+              amountType : {type : String},
+              foodCalories : {type : Number},
+              notes : [{type : String}],
+
+            }
+          ]
+        }
+      ]
+    },
+    dietNotes : [ {type : String}]
  
 });
 

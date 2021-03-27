@@ -10,8 +10,8 @@ const  createDiet  = require("../../utils/createDiet");
 router.get("/getDiet/:id", async (req, res) => {
     
     try {  
-      console.log("object") 
       const { id } = req.params
+      console.log(id) 
      
       let diet = await Diet.findOne({ user : id });
       console.log(diet)
@@ -36,8 +36,8 @@ router.get("/createDiet/:id", async (req, res) => {
      
       const { id } = req.params
       const calories = 1200
-      const nutrition = createDiet(calories)
-      console.log(nutrition)
+      const newDiet = createDiet(id, calories)
+      console.log(newDiet)
      
       let diet = await Diet.findOne({ user : id });
       console.log(diet)
@@ -45,14 +45,14 @@ router.get("/createDiet/:id", async (req, res) => {
           return res.status(200).json(diet)
       }
      
-        const newDiet = new Diet({
-            user : id,
-            nutrition,
-            calories,
-          });
+      // const newDiet = new Diet({
+      //     user : id,
+      //     nutrition,
+      //     calories,
+      //   });
 
-          await newDiet.save();
-     
+      await newDiet.save();
+    
   
       return res.status(200).json(newDiet)
 
