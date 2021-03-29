@@ -24,9 +24,9 @@ const DietSchema = new Schema({
             }
           ]
         }
-      ]
-    },
-    dietNotes : [ {type : String}]
+      ],
+      dietNotes : [ {type : String}]
+    }
  
 });
 

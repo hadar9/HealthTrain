@@ -16,7 +16,8 @@ const makeNutrition = () =>{
     ]
 
     const nutrition = {
-        meals : mealsArr      
+        meals : mealsArr ,
+        dietNotes : ["note 1", "note 2"]     
     }
 
     return nutrition

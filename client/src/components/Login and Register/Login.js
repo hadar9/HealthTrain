@@ -13,7 +13,7 @@ import MyTextField from "../Input/Input";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {  setUser } from "../../redux/reducers/UserReducer";
+import {  setToken, setUser } from "../../redux/reducers/UserReducer";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -74,6 +74,7 @@ const Login = () => {
                     const res = await axios.post("/api/login/loginUser", values);
                     const { token } = res.data;
                     dispatch(setUser({user: token}));
+                    dispatch(setToken({token: token}));
                     if (user.user.rank === 1 || user.user.rank === 0) {
                       history.push("/");
                     } else {
