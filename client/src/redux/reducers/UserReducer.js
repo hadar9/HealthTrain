@@ -12,7 +12,8 @@ export const setNutrition = createAction("setNutrition");
 const initialState = {
   user: null,
   token: null,
-  nutrition : null
+  nutrition : null,
+  calories : null
 };
 
 export const UserReducer = createReducer(initialState, {
@@ -34,6 +35,7 @@ export const UserReducer = createReducer(initialState, {
   },
   [setNutrition]: (state, action) => {
     state.nutrition = action.payload.nutrition;
+    state.calories = action.payload.calories;
     return state;
   },
 

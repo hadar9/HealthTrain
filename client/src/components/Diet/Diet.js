@@ -11,9 +11,22 @@ import { setNutrition } from '../../redux/reducers/UserReducer';
 const useStyles = makeStyles((theme) => ({
     updateMode: {
       backgroundColor: "blue",
+      "&:hover": { opacity: 0.7, backgroundColor: "blue" },
     },
     regularMode: {
       backgroundColor: "black",
+    },
+    redCalories: {
+      color: "red",
+      display: 'inline-block'
+     
+
+    },
+    calories: {
+      color: "black",
+      display: 'inline-block'
+    
+ 
     },
   }));
 
@@ -21,16 +34,19 @@ export const Diet = () => {
     const classes = useStyles();
     const user = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
+    const [caloriesSum, setCaloriesSum] = useState(null)
     const [updateMode, setUpdateMode] = useState(false)
     const [meals, setMeals] = useState([])
     const dispatch = useDispatch()
     const nutrition = useSelector(state => state.nutrition)
+    const calories = useSelector(state => state.calories)
 
     const handleClick = async () => {
         const res = await axios.get(`api/diet/createDiet/${user.user.id}`)
-        const {nutrition} = res.data
+        const {nutrition, calories} = res.data
         setMeals(nutrition.meals)
-        dispatch(setNutrition({nutrition : nutrition}))
+        setCaloriesSum(calories)
+        dispatch(setNutrition({nutrition, calories}))
 
     }
 
@@ -43,9 +59,10 @@ export const Diet = () => {
                     console.log(res.data.error)
                 }
                 if(res.data.nutrition){
-                    const {nutrition} = res.data
+                    const {nutrition, calories} = res.data
                     setMeals(nutrition.meals)
-                    dispatch(setNutrition({nutrition : nutrition}))
+                    setCaloriesSum(calories)
+                    dispatch(setNutrition({nutrition, calories}))
                 }
                    
             }
@@ -59,6 +76,7 @@ export const Diet = () => {
         }
         else {
             setMeals(nutrition.meals)
+            setCaloriesSum(calories)
         }
         setLoading(false)
     }, [])
@@ -71,6 +89,8 @@ export const Diet = () => {
     return (
         <div>
             <Typography variant="h6"><b>Diet</b></Typography>
+            <Typography style={{display: 'inline-block', marginRight : "1rem"}}  variant="h6"><b>Calories:</b></Typography>
+            <Typography  className={updateMode ? classes.redCalories : classes.calories} variant="h6"><b>{caloriesSum ? caloriesSum : null }</b></Typography>
             {nutrition ? <Box alignItems="flex-end" justifyContent="flex-end" component={"span"} display="flex">
                 <Button className={updateMode ? classes.updateMode : classes.regularMode} onClick={()=>convertToUpdateMode()} variant="contained"  color="primary">
                     {updateMode ? "Save Changes" : "Change Diet"}
