@@ -1,16 +1,12 @@
 import { Grid, Typography } from '@material-ui/core'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { DietNotes } from '../DietNotes'
-import { FoodItems } from './FoodItems'
+import { FoodItems } from './FoodItems/FoodItems'
 
 
-export const Meals = ({dietNotes, meals, updateMode}) => {
+export const Meals = ({dietNotes, meals, updateMode }) => {
 
-    useEffect(() => {
-       console.log(dietNotes.lenght > 0)
-       console.log(dietNotes)
-    }, [])
-
+  
     return (
         <>
             {meals.map((m, index) =>
@@ -23,7 +19,12 @@ export const Meals = ({dietNotes, meals, updateMode}) => {
                 </Grid>
                 <Grid item xs={12}>
                     <div>
-                        <FoodItems updateMode={updateMode} foodIndex={index} foodItems={m.foodItems} />
+                        <FoodItems 
+                            updateMode={updateMode} 
+                            foodIndex={index} 
+                            foodItems={m.foodItems}
+                 
+                        />
                     </div>
                 </Grid>
             </Grid>

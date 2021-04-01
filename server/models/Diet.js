@@ -15,6 +15,7 @@ const DietSchema = new Schema({
           mealName : {type: String},
           foodItems : [
             {
+              _id: false,
               name : {type : String},
               amount : {type : Number},
               amountType : {type : String},

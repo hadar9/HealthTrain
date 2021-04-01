@@ -1,24 +1,26 @@
 import React from "react";
 import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { MealsModalContent } from "./MealsModalContent";
 
 
 
 const useStyles = makeStyles((theme) => ({
-    popover: {
-      pointerEvents: "none",
+    popover: {      
+      position: "relative",
     },
     paper: {
       padding: theme.spacing(1),
     },
   }));
 
-export const MealModal = ({ open, anchorEl, handlePopoverClose }) => {
+
+
+export const MealModal = ({ open, anchorEl, handlePopoverClose, foodIndex}) => {
     const classes = useStyles();
 
     return (
-        <div>
+        <div className={classes.raised}>
             <Popover
                 id="mouse-over-popover"
                 className={classes.popover}
@@ -38,9 +40,11 @@ export const MealModal = ({ open, anchorEl, handlePopoverClose }) => {
                 onClose={handlePopoverClose}
                 disableRestoreFocus
             >
-                <Typography variant="subtitle1" style={{ fontWeight: "bold" }}>
-                modal
-                </Typography>
+              <MealsModalContent 
+                foodIndex={foodIndex} 
+                handleClose={handlePopoverClose} 
+            />
+               
             </Popover>
         </div>
     )

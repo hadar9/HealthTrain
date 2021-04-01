@@ -61,6 +61,34 @@ router.get("/createDiet/:id", async (req, res) => {
       }
     });
   
+// Update Diet
+router.post("/updateDiet", async (req, res) => {
+    
+    try {  
+     
+      const { userID, nutrition } = req.body
+      
+     
+      let diet = await Diet.findOne({ user : userID });
+      console.log(diet)
+      if(!diet){
+          return res.status(200).json({error : "Something went wrong"})
+      }
+
+      diet.nutrition = nutrition
+     
+      
+
+      await diet.save();
+    
+  
+      return res.status(200).json("Diet saved successfully!")
+
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  
 
 
 module.exports = router;
