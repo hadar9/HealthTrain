@@ -64,10 +64,10 @@ export const Diet = () => {
 
     // handle diet load
     useEffect(() => {
-        console.log(nutrition.meals.reduce((a,b)=>{
-            const mealCalories = b.foodItems.reduce((c,d) => c + d.foodCalories *( d.amountType === "Grams" ? d.amount / 100 : d.amount), 0)
-            return a + mealCalories
-        }, 0))
+        // console.log(nutrition.meals.reduce((a,b)=>{
+        //     const mealCalories = b.foodItems.reduce((c,d) => c + d.foodCalories *( d.amountType === "Grams" ? d.amount / 100 : d.amount), 0)
+        //     return a + mealCalories
+        // }, 0))
         const fetchDiet = async () => {
             try {
                 console.log(user.user)

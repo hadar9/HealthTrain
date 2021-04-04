@@ -77,11 +77,8 @@ router.post("/updateDiet", async (req, res) => {
 
       diet.nutrition = nutrition
      
-      
-
       await diet.save();
     
-  
       return res.status(200).json("Diet saved successfully!")
 
       } catch (e) {
