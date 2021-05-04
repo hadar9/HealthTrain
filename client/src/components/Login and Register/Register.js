@@ -139,6 +139,8 @@ const Register = () => {
                     className={classes.fields}            
                     name="gender"
                     label="Gender "
+                    values={["Male", "Female"]}
+                    value={'0'}
                   />
                   <br />
                   <MyTextField  

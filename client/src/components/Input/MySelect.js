@@ -19,12 +19,11 @@ const MySelect = ({ label, ...props }) => {
       <FormControl error={error}>
         <InputLabel>{label}</InputLabel>
         <Select {...field} {...props} error={error}>
-          <MenuItem value={0}>
-            Male
-          </MenuItem>
-          <MenuItem value={1}>
-            Female
-          </MenuItem>
+          {props.values.map((v, index) =>
+              <MenuItem key={v} value={index}>
+                {v}
+            </MenuItem>        
+            )}
 
         </Select>
    

@@ -1,18 +1,21 @@
 const Diet = require("../models/Diet")
+// const FoodItem = require("../models/FoodItem")
 
-const makeNutrition = () =>{
+const makeNutrition = (foodItems) =>{
+    // const foodItemsArr = [
+    //     {name : "Egg", amountType : "Unit" , defaultAmount : 1, foodCalories : 180, foodType : "Protein", notes: ["Large egg"]},
+    //     {name : "White bread", amountType : "Unit" , defaultAmount : 1, foodCalories : 180, foodType : "Carbs", notes: ["Bread slice"]},
+    //     {name : "Farmer cheese", amountType : "Grams" , foodCalories : 180, foodType : "Protein"},
+    // ]
 
-    const foodItemsArr = [
-        {name : "Egg", amount : 2, amountType : "Unit" ,foodCalories : 180, notes: ["Large egg"]},
-        {name : "White bread", amount : 2, amountType : "Unit" , foodCalories : 180, notes: ["Bread slice"]},
-        {name : "Farmer cheese", amount : 100, amountType : "Grams" , foodCalories : 180},
-    ]
+    const foodItemsMapping = foodItems.map(f => ({foodItem : f._id, amount : 1}))
+    // console.log(foodItemsMapping)
 
     mealsArr = [
-        {mealName : "Breakfast", foodItems : foodItemsArr},
-        {mealName : "Brunch", foodItems : foodItemsArr},
-        {mealName : "Lunch", foodItems : foodItemsArr},
-        {mealName : "Dinner", foodItems : foodItemsArr},
+        {mealName : "Breakfast", foodItems : foodItemsMapping},
+        {mealName : "Brunch", foodItems : foodItemsMapping},
+        {mealName : "Lunch", foodItems : foodItemsMapping},
+        {mealName : "Dinner", foodItems : foodItemsMapping},
     ]
 
     const nutrition = {
@@ -23,11 +26,11 @@ const makeNutrition = () =>{
     return nutrition
 }
 
-const createDiet = (userID, calories) =>{
+const createDiet = (userID, calories, foodItems) =>{
    const newDiet = new Diet({
         user : userID,
         calories : calories,
-        nutrition : makeNutrition(),
+        nutrition : makeNutrition(foodItems),
         dietNotes : ["diet note"]
    })
 

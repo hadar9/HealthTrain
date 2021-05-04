@@ -2,7 +2,6 @@ import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BoxLoading } from 'react-loadingg';
 import { SemipolarLoading } from 'react-loadingg';
 import { Meals } from './Meal/Meals';
 import { setCaloriesSum, setNutrition } from '../../redux/reducers/UserReducer';

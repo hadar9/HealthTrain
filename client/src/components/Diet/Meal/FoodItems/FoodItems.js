@@ -1,11 +1,12 @@
-import { Grid, IconButton } from '@material-ui/core'
+import { Button, Grid, IconButton } from '@material-ui/core'
 import React from 'react'
 import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
 // import { useSelector } from 'react-redux';
 import { MealModal } from '../MealsModal/MealModal';
 import { FoodContent } from './FoodContent';
+// import { AddFoodModal } from './AddFoodModal/AddFoodModal';
 
-export const FoodItems = ({foodIndex, foodItems, updateMode}) => {
+export const FoodItems = ({mealIndex, foodItems, updateMode}) => {
     // const nutrition = useSelector(state => state.nutrition)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [foodIndexArr, setFoodIndexArr] = React.useState(null);
@@ -22,8 +23,15 @@ export const FoodItems = ({foodIndex, foodItems, updateMode}) => {
 
     const changeFood = (e, index) => {
         handlePopoverOpen(e)
-        console.log("need to implement", index ,foodIndex)
-        setFoodIndexArr([foodIndex, index])
+        console.log("need to implement", index ,mealIndex)
+        setFoodIndexArr([mealIndex, index])
+        // nutrition.meals.[foodIndex][index] = whatever
+    }
+
+    const addFood = (e) => {
+        handlePopoverOpen(e)
+        console.log("need to implement" ,mealIndex)
+        setFoodIndexArr([mealIndex])
         // nutrition.meals.[foodIndex][index] = whatever
     }
 
@@ -33,7 +41,7 @@ export const FoodItems = ({foodIndex, foodItems, updateMode}) => {
         <>
             <Grid container spacing={2} direction="row">
                 {foodItems?.map((f, index) => 
-                    <Grid item  key={f.name} > 
+                    <Grid item  key={f.foodItem.name} > 
                         {updateMode ? 
                             <> 
                                 <IconButton onClick={(e)=>changeFood(e, index)}><CompareArrowsIcon color="error" /></IconButton> 
@@ -43,11 +51,18 @@ export const FoodItems = ({foodIndex, foodItems, updateMode}) => {
                                     handlePopoverClose={handlePopoverClose}
                                     foodIndex={foodIndexArr}
                                 /> </> : null}
-                        <FoodContent food={f} />
-            </Grid>
+                        <FoodContent food={f} foodIndex={[mealIndex, index]}  updateMode={updateMode} />
+                    </Grid>
             )
         }
-        </Grid>
+            </Grid>
+            <Button variant="outlined"  style={{margin: "1rem"}} onClick={(e)=>addFood(e)}><b>add Food to this meal</b></Button>
+            {/* <AddFoodModal                           
+                open={open}
+                anchorEl={anchorEl}
+                handlePopoverClose={handlePopoverClose}
+                mealIndex={mealIndex}
+            /> */}
         </>
     )
 }

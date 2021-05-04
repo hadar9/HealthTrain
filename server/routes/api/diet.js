@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../../models/User");
 const Diet = require("../../models/Diet");
+const FoodItem = require("../../models/FoodItem");
 const  createDiet  = require("../../utils/createDiet");
 
 
@@ -13,7 +14,7 @@ router.get("/getDiet/:id", async (req, res) => {
       const { id } = req.params
       console.log(id) 
      
-      let diet = await Diet.findOne({ user : id });
+      let diet = await Diet.findOne({ user : id }).populate("nutrition.meals.foodItems.foodItem");
       console.log(diet)
       if(diet){
           return res.status(200).json(diet)
@@ -36,24 +37,33 @@ router.get("/createDiet/:id", async (req, res) => {
      
       const { id } = req.params
       const calories = 1200
-      const newDiet = createDiet(id, calories)
-      console.log(newDiet)
+
+      let foodItems = await FoodItem.find();
+
+      let newDiet = createDiet(id, calories, foodItems)
+      // console.log(newDiet)
      
       let diet = await Diet.findOne({ user : id });
-      console.log(diet)
+      // console.log(diet)
       if(diet){
           return res.status(200).json(diet)
       }
-     
-      // const newDiet = new Diet({
-      //     user : id,
-      //     nutrition,
-      //     calories,
-      //   });
+
 
       await newDiet.save();
-    
-  
+      // let tmp = newDiet;
+      // tmp.nutrition.meals.forEach(m => {
+      //   m.foodItems.forEach(f => {
+      //     const id1 = f.foodItem
+      //     let f1 = FoodItem.findOne({_id : id1}).then(res => res)
+      //     f.foodItem = f1
+      //   });
+      // });
+      // newDiet.populate("nutrition.meals.foodItems.foodItem")
+      let returnDiet = await Diet.findOne({ user : id }).populate("nutrition.meals.foodItems.foodItem");
+      if(returnDiet){
+        return res.status(200).json(returnDiet)
+      }
       return res.status(200).json(newDiet)
 
       } catch (e) {

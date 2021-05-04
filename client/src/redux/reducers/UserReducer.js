@@ -7,6 +7,8 @@ export const setToken = createAction("setToken");
 export const setNutrition = createAction("setNutrition");
 export const setCaloriesSum = createAction("setCaloriesSum");
 export const updateFood = createAction("updateFood");
+export const deleteFood = createAction("deleteFood");
+export const updateMeal = createAction("updateMeal");
 
 
 
@@ -51,6 +53,17 @@ export const UserReducer = createReducer(initialState, {
     const {newItem, indexes} = payload
     const [mealIndex, foodItemsIndex] = indexes
     state.nutrition.meals[mealIndex].foodItems[foodItemsIndex] = newItem
+    return state;
+  },
+  [deleteFood]: (state, {payload}) => {
+    const {indexes} = payload
+    const [mealIndex, foodItemsIndex] = indexes
+    state.nutrition.meals[mealIndex].foodItems.splice(foodItemsIndex, 1)
+    return state;
+  },
+  [updateMeal]: (state, {payload}) => {
+    const {newItem, mealIndex} = payload
+    state.nutrition.meals[mealIndex].push(newItem)
     return state;
   },
 

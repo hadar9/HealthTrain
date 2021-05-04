@@ -14,15 +14,11 @@ const DietSchema = new Schema({
         {
           mealName : {type: String},
           foodItems : [
-            {
-              _id: false,
-              name : {type : String},
-              amount : {type : Number},
-              amountType : {type : String},
-              foodCalories : {type : Number},
-              notes : [{type : String}],
-
-            }
+             {
+               foodItem : {type: Schema.Types.ObjectId,
+                            ref: "foodItems"},
+               amount : {type: Number, default : 1}             
+              }
           ]
         }
       ],

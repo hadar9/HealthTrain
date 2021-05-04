@@ -2,32 +2,26 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const FoodItemsSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
-    },
-    calories: {
-      type: Number,
-    },
-    nutrition: {
-      meals : [
-        {
-          mealName : {type: String},
-          foodItems : [
-            {
-              _id: false,
-              name : {type : String},
-              amount : {type : Number},
-              amountType : {type : String},
-              foodCalories : {type : Number},
-              notes : [{type : String}],
+  
+  name : {
+    type : String,
+    required: true
+  },
+  amountType : {
+    type : String,
+    required: true
+  },
+  defaultAmount : {
+    type : Number,
+    default: 1
+  },
+  foodCalories : {
+    type : Number,
+    required: true
+  },
+  foodType : {type : String, required : true},
+  notes : [{type : String}],
 
-            }
-          ]
-        }
-      ],
-      dietNotes : [ {type : String}]
-    }
  
 });
 

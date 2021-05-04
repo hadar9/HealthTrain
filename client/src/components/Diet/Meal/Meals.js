@@ -1,7 +1,8 @@
-import { Grid, Typography } from '@material-ui/core'
+import { Button, Grid, IconButton, Typography } from '@material-ui/core'
 import React from 'react'
 import { DietNotes } from '../DietNotes'
 import { FoodItems } from './FoodItems/FoodItems'
+// import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 
 export const Meals = ({dietNotes, meals, updateMode }) => {
@@ -21,12 +22,14 @@ export const Meals = ({dietNotes, meals, updateMode }) => {
                     <div>
                         <FoodItems 
                             updateMode={updateMode} 
-                            foodIndex={index} 
+                            mealIndex={index} 
                             foodItems={m.foodItems}
                  
                         />
                     </div>
+                         
                 </Grid>
+                
             </Grid>
            )}
            {dietNotes.length > 0 ? <DietNotes dietNotes={dietNotes} /> : null}
