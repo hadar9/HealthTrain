@@ -1,19 +1,28 @@
-.showworkout-0 {
-  background: #343a40;
+.workout-title {
+  margin: auto;
+  width: 500px;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+.workout {
+  margin-top: 2%;
 }
 
+.showworkout-0 {
+  background-color: #343a40;
+}
 .showworkout-1 {
-  background-color: #f7f7f7;
+  background-color: #dacdcd41;
 }
 .showworkout-2 {
   background-color: #343a40;
 }
 .showworkout-3 {
-  background-color: #f7f7f7;
+  background-color: #dacdcd41;
 }
 .showworkout-4 {
   background-color: #343a40;
 }
 .showworkout-5 {
-  background-color: ##f7f7f7;
+  background-color: #dacdcd41;
 }

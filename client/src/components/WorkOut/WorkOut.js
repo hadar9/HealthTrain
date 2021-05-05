@@ -25,16 +25,19 @@ export function WorkOut() {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
     pauseOnHover: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
 
-  const workouts = workout.map((work,index) => (
+  const workouts = workout.map((work, index) => (
     <div key={work._id}>
-      {' '}
+      <div className='workout-title'>
+        <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
+        <h3 style={{ textAlign: 'center' }}>Total Time: {work.totaltime}</h3>
+      </div>
       <ShowWorkOut work={work} index={index} />
     </div>
   ));

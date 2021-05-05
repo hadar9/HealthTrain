@@ -7,15 +7,14 @@ export default function ShowWorkOut({ work, index }) {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
   };
 
   const erecisecards = work.exercises.map((exc) => <ExreciseCard exc={exc} />);
 
   return (
     <div className={`showworkout-${index}`}>
-      <p className='hadar'></p>
       <Slider {...settings}>{erecisecards}</Slider>
     </div>
   );

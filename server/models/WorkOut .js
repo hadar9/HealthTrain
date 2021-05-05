@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const WorkOutSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
   exercises: [
     {
       name: {
