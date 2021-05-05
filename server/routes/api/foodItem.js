@@ -27,6 +27,27 @@ router.get("/getFoodItem/:id", async (req, res) => {
       }
     });
 
+
+// get all food Items
+router.get("/getAllFoodItems", async (req, res) => {
+    
+    try {  
+     
+     
+      let foodItems = await FoodItem.find();
+    
+      if(foodItems.length === 0){
+          return res.status(200).json({error : "No items in DB"})
+      }
+      else{
+        return res.status(200).json(foodItems)
+      }
+     
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
     
 // Create foodItem
 router.post("/createFoodItem", async (req, res) => {
