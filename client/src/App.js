@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { Diet } from './components/Diet/Diet';
 import { FoodDiary } from './components/FoodDiary/FoodDiary';
 import { WorkOut } from './components/WorkOut/WorkOut';
-
+import './App.css';
 const App = () => {
   const user = useSelector((state) => state.user);
 

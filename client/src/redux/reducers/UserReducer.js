@@ -1,24 +1,25 @@
-import { createReducer, createAction } from "@reduxjs/toolkit";
-import jwt_decode from "jwt-decode";
+import { createReducer, createAction } from '@reduxjs/toolkit';
+import jwt_decode from 'jwt-decode';
 
-export const setUser = createAction("setUser");
-export const logout = createAction("logout");
-export const setToken = createAction("setToken");
-export const setNutrition = createAction("setNutrition");
-export const setCaloriesSum = createAction("setCaloriesSum");
-export const updateFood = createAction("updateFood");
-export const deleteFood = createAction("deleteFood");
-export const updateMeal = createAction("updateMeal");
+export const setUser = createAction('setUser');
+export const logout = createAction('logout');
+export const setToken = createAction('setToken');
+export const setNutrition = createAction('setNutrition');
+export const setCaloriesSum = createAction('setCaloriesSum');
+export const updateFood = createAction('updateFood');
+export const deleteFood = createAction('deleteFood');
+export const updateMeal = createAction('updateMeal');
 
-
-
+// hadar workout
+export const getWorkOuts = createAction('getWorkOuts');
 
 const initialState = {
   user: null,
   token: null,
-  nutrition : null,
-  calories : null,
-  caloriesSum: null
+  nutrition: null,
+  calories: null,
+  caloriesSum: null,
+  workout: null,
 };
 
 export const UserReducer = createReducer(initialState, {
@@ -27,7 +28,7 @@ export const UserReducer = createReducer(initialState, {
     return state;
   },
   [logout]: (state) => {
-    localStorage.removeItem("persist:root");
+    localStorage.removeItem('persist:root');
     state = {
       user: null,
       token: null,
@@ -40,7 +41,7 @@ export const UserReducer = createReducer(initialState, {
   },
   [setNutrition]: (state, action) => {
     state.nutrition = action.payload.nutrition;
-    if(action.payload.calories){
+    if (action.payload.calories) {
       state.calories = action.payload.calories;
     }
     return state;
@@ -49,23 +50,27 @@ export const UserReducer = createReducer(initialState, {
     state.caloriesSum = action.payload.caloriesSum;
     return state;
   },
-  [updateFood]: (state, {payload}) => {
-    const {newItem, indexes} = payload
-    const [mealIndex, foodItemsIndex] = indexes
-    state.nutrition.meals[mealIndex].foodItems[foodItemsIndex] = newItem
+  [updateFood]: (state, { payload }) => {
+    const { newItem, indexes } = payload;
+    const [mealIndex, foodItemsIndex] = indexes;
+    state.nutrition.meals[mealIndex].foodItems[foodItemsIndex] = newItem;
     return state;
   },
-  [deleteFood]: (state, {payload}) => {
-    const {indexes} = payload
-    const [mealIndex, foodItemsIndex] = indexes
-    state.nutrition.meals[mealIndex].foodItems.splice(foodItemsIndex, 1)
+  [deleteFood]: (state, { payload }) => {
+    const { indexes } = payload;
+    const [mealIndex, foodItemsIndex] = indexes;
+    state.nutrition.meals[mealIndex].foodItems.splice(foodItemsIndex, 1);
     return state;
   },
-  [updateMeal]: (state, {payload}) => {
-    const {newItem, mealIndex} = payload
-    state.nutrition.meals[mealIndex].push(newItem)
+  [updateMeal]: (state, { payload }) => {
+    const { newItem, mealIndex } = payload;
+    state.nutrition.meals[mealIndex].push(newItem);
     return state;
   },
-
-
+  // hadar workout
+  [getWorkOuts]: (state, { payload }) => {
+    const { workout } = payload;
+    state.workout = workout;
+    return state;
+  },
 });

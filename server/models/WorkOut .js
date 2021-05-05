@@ -6,9 +6,6 @@ const WorkOutSchema = new mongoose.Schema({
       name: {
         type: String,
       },
-      img: {
-        type: String,
-      },
       gear: {
         type: String,
       },
