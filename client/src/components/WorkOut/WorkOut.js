@@ -12,12 +12,12 @@ export function WorkOut() {
     try {
       const res = await axios.get('/api/workout');
       dispatch(getWorkOuts({ workout: res.data }));
-      console.log(res.data)
+      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
   };
-  const workout = useSelector((state) => state.workoutReducer.workout);
+  const workout = useSelector((state) => state.workoutReducer.workout.workout);
 
   useEffect(() => {
     getWorkOutss();
@@ -26,24 +26,26 @@ export function WorkOut() {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 4000,
     pauseOnHover: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
 
-
-
-  const workouts = workout.length ? workout.map((work, index) => (
-    <div key={work._id}>
-      <div className='workout-title'>
-        <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
-        <h3 style={{ textAlign: 'center' }}>Total Time: {work.totaltime}</h3>
-      </div>
-      <ShowWorkOut work={work} index={index} />
-    </div>
-  )) : null
+  const workouts = workout.length
+    ? workout.map((work, index) => (
+        <div key={work._id}>
+          <div className='workout-title'>
+            <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
+            <h3 style={{ textAlign: 'center' }}>
+              Total Time: {work.totaltime}
+            </h3>
+          </div>
+          <ShowWorkOut work={work} index={index} />
+        </div>
+      ))
+    : null;
 
   return (
     <div className='workout'>
