@@ -2,17 +2,22 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red, yellow } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import back from '../../images/back.jpg';
+import Bending_hands_with_a_dumbbell from '../../images/Bending hands with a dumbbell.jpg';
+import Bending_legs_with_large_dumbbell from '../../images/Bending legs with large dumbbell.jpg';
+import Bending_legs_with_small_dumbbell from '../../images/Bending legs with small dumbbell.jpg';
+import hoop from '../../images/hoop.jpg';
+import pushups from '../../images/pushups.jpg';
+import Raising_your_hands_with_a_dumbbell from '../../images/Raising your hands with a dumbbell.jpg';
+import sits_up from '../../images/sits up.jpg';
+import static_belly from '../../images/Static belly.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '100%', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -36,6 +41,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ExreciseCard({ exc }) {
+  const images = {
+    back,
+    Bending_hands_with_a_dumbbell,
+    Bending_legs_with_large_dumbbell,
+    Bending_legs_with_small_dumbbell,
+    hoop,
+    pushups,
+    Raising_your_hands_with_a_dumbbell,
+    sits_up,
+    static_belly,
+  };
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -47,7 +63,7 @@ export default function ExreciseCard({ exc }) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image='/static/images/cards/paella.jpg'
+        image={images[exc.name.split(' ').join('_')]}
         title='Paella dish'
       />
       <CardContent>

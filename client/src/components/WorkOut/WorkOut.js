@@ -4,6 +4,8 @@ import ShowWorkOut from './ShowWorkOut';
 import axios from 'axios';
 import { getWorkOuts } from '../../redux/reducers/workoutReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import AlarmIcon from '@material-ui/icons/Alarm';
 
 export function WorkOut() {
   const dispatch = useDispatch();
@@ -41,6 +43,13 @@ export function WorkOut() {
             <h3 style={{ textAlign: 'center' }}>
               Total Time: {work.totaltime}
             </h3>
+            <Button
+              variant='contained'
+              style={{ marginLeft: '30%', marginBottom: '10px' }}
+            >
+              Start WorkOut
+              <AlarmIcon style={{ marginLeft: '4px' }} />
+            </Button>
           </div>
           <ShowWorkOut work={work} index={index} />
         </div>
