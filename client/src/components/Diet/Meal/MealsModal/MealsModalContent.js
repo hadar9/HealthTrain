@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import MySelect from '../../../Input/MySelect';
 
 export const MealsModalContent = ({foodIndex, handleClose}) => {
-    const nutrition = useSelector(state => state.nutrition)
-    const caloriesSum = useSelector(state => state.caloriesSum)
+    const nutrition = useSelector(state => state.userReducer.nutrition)
+    const caloriesSum = useSelector(state => state.userReducer.caloriesSum)
     const dispatch = useDispatch()
     const [food, setFood] = useState(nutrition.meals[foodIndex[0]].foodItems[foodIndex[1]])
 

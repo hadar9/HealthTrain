@@ -7,7 +7,7 @@ import { Box } from "@material-ui/core";
 import { logout } from "../../redux/reducers/UserReducer";
 
 const Navbar = ({ routing }) => {
-  const user = useSelector((s) => s.user);
+  const user = useSelector((s) => s.userReducer.user);
   const dispatch = useDispatch();
   const navButtons = routing.map((r) => (
     <Link

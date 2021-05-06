@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 export default function BottomNav() {
   const classes = useStyles();
-  const bottomNavTab = useSelector(state => state.bottomNavTab)
+  const bottomNavTab = useSelector(state => state.userReducer.bottomNavTab)
   const dispatch = useDispatch()
   const [value, setValue] = useState(bottomNavTab);
   // const [value, setValue] = useState("workouts");

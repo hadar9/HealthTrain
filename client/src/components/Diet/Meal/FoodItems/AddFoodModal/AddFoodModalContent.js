@@ -6,10 +6,10 @@ import MySelect from '../../../../Input/MySelect';
 import axios from 'axios'
 
 export const AddFoodModalContent = ({mealIndex}) => {
-    const nutrition = useSelector(state => state.nutrition)
+    const nutrition = useSelector(state => state.userReducer.nutrition)
     const [foodItems, setFoodItems] = useState([])
     const [foodNamesArr, setfoodNamesArr] = useState([])
-    // const caloriesSum = useSelector(state => state.caloriesSum)
+    // const caloriesSum = useSelector(state => state.userReducer.caloriesSum)
     // const dispatch = useDispatch()
     const [meal, setMeal] = useState(null)
 

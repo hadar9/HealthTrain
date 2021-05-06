@@ -1,5 +1,5 @@
 import logger from "redux-logger";
-import rootReducer from "./reducers/rootReducer";
+import rootReducer from './reducers/rootReducer'
 import { persistStore } from "redux-persist";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 // import thunk from "redux-thunk";

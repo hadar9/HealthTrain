@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const history = useHistory();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [errors, setErrors] = useState(null);
@@ -44,6 +44,7 @@ const Login = () => {
 
 
   useEffect(() => {
+    console.log(user)
     if (user && (user.user.rank === 1 || user.user.rank === 0)) {
       history.push("/AdminPage");
     } else if (user && user.user.rank === 2){

@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
 
 export const Diet = () => {
     const classes = useStyles();
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.userReducer.user)
     const [loading, setLoading] = useState(false)
     const [updateMode, setUpdateMode] = useState(false)
     const [meals, setMeals] = useState([])
     const dispatch = useDispatch()
-    const nutrition = useSelector(state => state.nutrition)
-    const calories = useSelector(state => state.calories)
-    const caloriesSum = useSelector(state => state.caloriesSum)
+    const nutrition = useSelector(state => state.userReducer.nutrition)
+    const calories = useSelector(state => state.userReducer.calories)
+    const caloriesSum = useSelector(state => state.userReducer.caloriesSum)
     const lowCaloriesAlert = "You need to add calories  your goal is " + calories
     const highCaloriesAlert = "You need to reduce calories your goal is " + calories
 

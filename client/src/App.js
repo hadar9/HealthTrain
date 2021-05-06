@@ -12,7 +12,7 @@ import { FoodDiary } from './components/FoodDiary/FoodDiary';
 import { WorkOut } from './components/WorkOut/WorkOut';
 import './App.css';
 const App = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.userReducer.user);
 
   const routing = [
     { to: '/Login', name: 'Login' },

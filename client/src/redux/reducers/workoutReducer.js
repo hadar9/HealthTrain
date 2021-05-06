@@ -1,14 +1,25 @@
-import { createReducer, createAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const getWorkOuts = createAction('getWorkOuts');
 
 const initialState = {
-  workout: null,
+  workout: []
 };
 
-export const workoutReducer = createReducer(initialState, {
-  [getWorkOuts]: (state, action) => {
+
+
+const reducers = {
+  getWorkOuts: (state, action) => {
     state.workout = action.payload;
     return state;
-  },
-});
+  }
+}
+
+export const workoutSlice = createSlice({
+  name: 'workoutReducer',
+  initialState: initialState,
+  reducers: reducers
+})
+
+export const {getWorkOuts} = workoutSlice.actions
+
+export default workoutSlice.reducer

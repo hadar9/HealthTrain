@@ -7,7 +7,7 @@ import { FoodContent } from './FoodContent';
 import { Modaltmp } from './AddFoodModal/Modaltmp';
 
 export const FoodItems = ({mealIndex, foodItems, updateMode}) => {
-    // const nutrition = useSelector(state => state.nutrition)
+    // const nutrition = useSelector(state => state.userReducer.nutrition)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorElAddFood, setAnchorElAddFood] = React.useState(null);
     const [foodIndexArr, setFoodIndexArr] = React.useState(null);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import ShowWorkOut from './ShowWorkOut';
 import axios from 'axios';
-import { getWorkOuts } from '../../redux/reducers/UserReducer';
+import { getWorkOuts } from '../../redux/reducers/workoutReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function WorkOut() {
@@ -12,11 +12,12 @@ export function WorkOut() {
     try {
       const res = await axios.get('/api/workout');
       dispatch(getWorkOuts({ workout: res.data }));
+      console.log(res.data)
     } catch (e) {
       console.log(e);
     }
   };
-  const workout = useSelector((state) => state.workout);
+  const workout = useSelector((state) => state.workoutReducer.workout);
 
   useEffect(() => {
     getWorkOutss();
@@ -32,7 +33,9 @@ export function WorkOut() {
     slidesToScroll: 1,
   };
 
-  const workouts = workout.map((work, index) => (
+
+
+  const workouts = workout.length ? workout.map((work, index) => (
     <div key={work._id}>
       <div className='workout-title'>
         <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
@@ -40,11 +43,11 @@ export function WorkOut() {
       </div>
       <ShowWorkOut work={work} index={index} />
     </div>
-  ));
+  )) : null
 
   return (
     <div className='workout'>
-      <Slider {...settings}>{workouts}</Slider>
+      {workouts ? <Slider {...settings}>{workouts}</Slider> : null}
     </div>
   );
 }
