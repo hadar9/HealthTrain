@@ -11,7 +11,9 @@ export default function ShowWorkOut({ work, index }) {
     slidesToScroll: 3,
   };
 
-  const erecisecards = work.exercises.map((exc) => <ExreciseCard exc={exc} />);
+  const erecisecards = work.exercises.map((exc) => (
+    <ExreciseCard exc={exc} key={exc._id} />
+  ));
 
   return (
     <div className={`showworkout-${index}`}>

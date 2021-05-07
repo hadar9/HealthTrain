@@ -14,16 +14,17 @@ export function WorkOut() {
     try {
       const res = await axios.get('/api/workout');
       dispatch(getWorkOuts({ workout: res.data }));
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
   };
-  const workout = useSelector((state) => state.workoutReducer.workout.workout);
 
   useEffect(() => {
     getWorkOutss();
   }, []);
+
+  const workout = useSelector((state) => state.workoutReducer.workout.workout);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -35,26 +36,27 @@ export function WorkOut() {
     slidesToScroll: 1,
   };
 
-  const workouts = workout.length
-    ? workout.map((work, index) => (
-        <div key={work._id}>
-          <div className='workout-title'>
-            <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
-            <h3 style={{ textAlign: 'center' }}>
-              Total Time: {work.totaltime}
-            </h3>
-            <Button
-              variant='contained'
-              style={{ marginLeft: '30%', marginBottom: '10px' }}
-            >
-              Start WorkOut
-              <AlarmIcon style={{ marginLeft: '4px' }} />
-            </Button>
+  const workouts =
+    workout !== null
+      ? workout.map((work, index) => (
+          <div key={work._id}>
+            <div className='workout-title'>
+              <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
+              <h3 style={{ textAlign: 'center' }}>
+                Total Time: {work.totaltime} mintues
+              </h3>
+              <Button
+                variant='contained'
+                style={{ marginLeft: '30%', marginBottom: '10px' }}
+              >
+                Start WorkOut
+                <AlarmIcon style={{ marginLeft: '4px' }} />
+              </Button>
+            </div>
+            <ShowWorkOut work={work} index={index} />
           </div>
-          <ShowWorkOut work={work} index={index} />
-        </div>
-      ))
-    : null;
+        ))
+      : null;
 
   return (
     <div className='workout'>

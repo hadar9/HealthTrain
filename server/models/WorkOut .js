@@ -16,15 +16,15 @@ const WorkOutSchema = new mongoose.Schema({
         type: String,
       },
       sets: {
-        type: String,
+        type: Number,
       },
       time: {
-        type: String,
+        type: Number,
       },
     },
   ],
   totaltime: {
-    type: String,
+    type: Number,
   },
 });
 module.exports = WorkOut = mongoose.model('workouts', WorkOutSchema);

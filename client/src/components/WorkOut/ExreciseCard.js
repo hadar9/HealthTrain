@@ -103,7 +103,7 @@ export default function ExreciseCard({ exc }) {
           </Typography>
           <Typography paragraph>
             <strong>Time: </strong>
-            {exc.time}
+            {exc.time} minutes
           </Typography>
         </CardContent>
       </Collapse>
