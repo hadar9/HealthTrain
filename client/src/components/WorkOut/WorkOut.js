@@ -8,22 +8,20 @@ import Button from '@material-ui/core/Button';
 import AlarmIcon from '@material-ui/icons/Alarm';
 
 export function WorkOut() {
-  const dispatch = useDispatch();
-
-  const getWorkOutss = async () => {
-    try {
-      const res = await axios.get('/api/workout');
-      dispatch(getWorkOuts({ workout: res.data }));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
+    const getWorkOutss = async () => {
+      try {
+        const res = await axios.get('/api/workout');
+        dispatch(getWorkOuts({ workout: res.data }));
+      } catch (e) {
+        console.log(e);
+      }
+    };
     getWorkOutss();
   }, []);
+  const dispatch = useDispatch();
 
-  const workout = useSelector((state) => state.workoutReducer.workout.workout);
+  let workout = useSelector((state) => state.workoutReducer.workout);
 
   const settings = {
     dots: true,
@@ -38,7 +36,7 @@ export function WorkOut() {
 
   const workouts =
     workout !== null
-      ? workout.map((work, index) => (
+      ? workout.workout.map((work, index) => (
           <div key={work._id}>
             <div className='workout-title'>
               <h1 style={{ textAlign: 'center' }}>{work.name}</h1>
@@ -60,7 +58,7 @@ export function WorkOut() {
 
   return (
     <div className='workout'>
-      {workouts ? <Slider {...settings}>{workouts}</Slider> : null}
+      {workouts !== null ? <Slider {...settings}>{workouts}</Slider> : null}
     </div>
   );
 }
