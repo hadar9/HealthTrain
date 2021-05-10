@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import ShowWorkOut from './ShowWorkOut';
+import StartWorkOut from './StartWorkOut';
 import axios from 'axios';
 import { getWorkOuts } from '../../redux/reducers/workoutReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import AlarmIcon from '@material-ui/icons/Alarm';
 
 export function WorkOut() {
+  const [chooseworkout, setworkout] = useState(null);
+
   useEffect(() => {
     const getWorkOutss = async () => {
       try {
@@ -18,7 +21,7 @@ export function WorkOut() {
       }
     };
     getWorkOutss();
-  }, []);
+  }, [chooseworkout]);
   const dispatch = useDispatch();
 
   let workout = useSelector((state) => state.workoutReducer.workout);
@@ -46,6 +49,7 @@ export function WorkOut() {
               <Button
                 variant='contained'
                 style={{ marginLeft: '30%', marginBottom: '10px' }}
+                onClick={(e) => setworkout(work)}
               >
                 Start WorkOut
                 <AlarmIcon style={{ marginLeft: '4px' }} />
@@ -56,9 +60,11 @@ export function WorkOut() {
         ))
       : null;
 
-  return (
-    <div className='workout'>
-      {workouts !== null ? <Slider {...settings}>{workouts}</Slider> : null}
-    </div>
-  );
+  let ret = null;
+  if (workouts !== null && chooseworkout === null) {
+    ret = <Slider {...settings}>{workouts}</Slider>;
+  } else if (workouts !== null && chooseworkout !== null) {
+    ret = <StartWorkOut work={chooseworkout} />;
+  }
+  return <div className='workout'>{ret}</div>;
 }
