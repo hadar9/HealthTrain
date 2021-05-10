@@ -5,12 +5,27 @@ import MyTextField from '../../../Input/Input'
 import { useDispatch, useSelector } from 'react-redux';
 // import { setNutrition, updateFood } from '../../../../redux/reducers/UserReducer';
 import MySelect from '../../../Input/MySelect';
+import axios from 'axios';
 
 export const MealsModalContent = ({foodIndex, handleClose}) => {
     const nutrition = useSelector(state => state.userReducer.nutrition)
     const caloriesSum = useSelector(state => state.userReducer.caloriesSum)
     const dispatch = useDispatch()
     const [food, setFood] = useState(nutrition.meals[foodIndex[0]].foodItems[foodIndex[1]])
+    const [foodNames, setFoodNames] = useState([])
+
+    useEffect(() => {
+      const fetchFoodItems = async() => {
+        const {data} = await axios.get("/api/foodItem/getAllFoodItems")
+        // console.log(data)
+        let tmp = [...data]
+        tmp = data.map(d => d.name)
+        tmp = tmp.filter(t => t !== food.foodItem.name)
+        setFoodNames(tmp)
+      }
+      fetchFoodItems()
+      
+    }, [])
 
     const fieldValues = [
         {name: "name" , type:  "text", label: "Name: "},
@@ -26,7 +41,7 @@ export const MealsModalContent = ({foodIndex, handleClose}) => {
               key={f.name}
               name={f.name}
               label={f.label}
-              values={[food.foodItem.name, "item1", "item2"]}
+              values={[food.foodItem.name].concat(foodNames)}
               value={'0'}
             />              
             )    

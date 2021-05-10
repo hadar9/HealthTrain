@@ -37,7 +37,7 @@ export const FoodItems = ({mealIndex, foodItems, updateMode}) => {
 
     const changeFood = (e, index) => {
         handlePopoverOpen(e)
-        console.log("need to implement", index ,mealIndex)
+        // console.log("need to implement", index ,mealIndex)
         setFoodIndexArr([mealIndex, index])
         // nutrition.meals.[foodIndex][index] = whatever
     }
