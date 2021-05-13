@@ -133,7 +133,7 @@ export const Diet = () => {
 
     const caloriesTitle = (
         <>
-            <Typography style={{display: 'inline-block', marginRight : "1rem"}}  variant="h6"><b>Calories:</b></Typography>
+            <Typography  style={{display: 'inline-block', marginRight : "1rem"}}  variant="h6"><b>Calories:</b></Typography>
             <Typography  className={updateMode ? classes.redCalories : classes.calories} variant="h6"><b>{caloriesSum ? caloriesSum : null }</b></Typography>
         </>
     )
@@ -156,7 +156,7 @@ export const Diet = () => {
 
     return (
         <div>
-            <Typography variant="h6"><b>Diet</b></Typography>
+            <Typography align="center" variant="h4"><b>Diet</b></Typography>
             {topPart()}
             {meals.length > 0 && nutrition ? 
                 <Meals 
