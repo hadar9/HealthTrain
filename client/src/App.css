@@ -1,3 +1,16 @@
+.homepagedata {
+  border: 2px solid black;
+  width: 450px;
+  text-align: center;
+  color: black;
+  margin-top: 5%;
+}
+.homepagehistory {
+  position: fixed;
+  top: 17%;
+  right: 35%;
+}
+
 .workout-title {
   margin: auto;
   width: 500px;
