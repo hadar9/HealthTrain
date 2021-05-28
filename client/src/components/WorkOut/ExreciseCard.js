@@ -19,28 +19,42 @@ import Raising_your_hands_with_a_dumbbell from '../../images/Raising your hands 
 import sits_up from '../../images/sits up.jpg';
 import static_belly from '../../images/Static belly.jpg';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-    background: '#f7f7f7',
-  },
-  media: {
-    height: 0,
-    paddingTop: '100%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-}));
+export default function ExreciseCard({ exc, parentcomp }) {
+  let useStyles;
+  if (parentcomp !== 'start') {
+    useStyles = makeStyles((theme) => ({
+      root: {
+        maxWidth: 345,
+        background: '#f7f7f7',
+      },
+      media: {
+        height: 0,
+        paddingTop: '100%', // 16:9
+      },
+      expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+          duration: theme.transitions.duration.shortest,
+        }),
+      },
+      expandOpen: {
+        transform: 'rotate(180deg)',
+      },
+    }));
+  } else {
+    useStyles = makeStyles((theme) => ({
+      root: {
+        maxWidth: 500,
+        background: '#f7f7f7',
+      },
+      media: {
+        height: 0,
+        paddingTop: '100%', // 16:9
+      },
+    }));
+  }
 
-export default function ExreciseCard({ exc }) {
   const images = {
     back,
     Bending_hands_with_a_dumbbell,
@@ -66,47 +80,76 @@ export default function ExreciseCard({ exc }) {
         image={images[exc.name.split(' ').join('_')]}
         title='Paella dish'
       />
-      <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
-          {exc.name}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
+      {parentcomp !== 'start' ? (
         <CardContent>
-          <Typography paragraph>
-            <strong>Exercise Name: </strong>
-            {exc.name}
-          </Typography>
-          <Typography paragraph>
-            <strong>Gear: </strong>
-            {exc.gear}
-          </Typography>
-          <Typography paragraph>
-            <strong>Difficulty level: </strong>
-            {exc.difficultylevel}
-          </Typography>
-          <Typography paragraph>
-            <strong>Sets: </strong>
-            {exc.sets}
-          </Typography>
-          <Typography paragraph>
-            <strong>Time: </strong>
-            {exc.time} minutes
-          </Typography>
+          <CardContent>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {exc.name}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='show more'
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              <Typography paragraph>
+                <strong>Exercise Name: </strong>
+                {exc.name}
+              </Typography>
+              <Typography paragraph>
+                <strong>Gear: </strong>
+                {exc.gear}
+              </Typography>
+              <Typography paragraph>
+                <strong>Difficulty level: </strong>
+                {exc.difficultylevel}
+              </Typography>
+              <Typography paragraph>
+                <strong>Sets: </strong>
+                {exc.sets}
+              </Typography>
+              <Typography paragraph>
+                <strong>Time: </strong>
+                {exc.time} minutes
+              </Typography>
+            </CardContent>
+          </Collapse>
         </CardContent>
-      </Collapse>
+      ) : (
+        <>
+          <CardContent>
+            <Typography paragraph>
+              <strong>Exercise Name: </strong>
+              {exc.name}
+            </Typography>
+            <Typography paragraph>
+              <strong>Gear: </strong>
+              {exc.gear}
+            </Typography>
+            <Typography paragraph>
+              <strong>Difficulty level: </strong>
+              {exc.difficultylevel}
+            </Typography>
+            <Typography paragraph>
+              <strong>Sets: </strong>
+              {exc.sets}
+            </Typography>
+            <Typography paragraph>
+              <strong>Time: </strong>
+              {exc.time} minutes
+            </Typography>
+          </CardContent>
+        </>
+      )}
     </Card>
   );
 }

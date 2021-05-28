@@ -28,7 +28,7 @@ export default function StartWorkOut({ work }) {
         />
       </div>
       <div className='currentexc'>
-        <ExreciseCard exc={exc} />
+        <ExreciseCard exc={exc} parentcomp={'start'} />
       </div>
     </div>
   );

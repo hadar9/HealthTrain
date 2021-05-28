@@ -12,7 +12,7 @@ export default function ShowWorkOut({ work, index }) {
   };
 
   const erecisecards = work.exercises.map((exc) => (
-    <ExreciseCard exc={exc} key={exc._id} />
+    <ExreciseCard exc={exc} key={exc._id} parentcomp={'show'} />
   ));
 
   return (
