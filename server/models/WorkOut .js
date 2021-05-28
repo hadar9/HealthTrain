@@ -26,5 +26,8 @@ const WorkOutSchema = new mongoose.Schema({
   totaltime: {
     type: Number,
   },
+  totalcalories: {
+    type: Number,
+  },
 });
 module.exports = WorkOut = mongoose.model('workouts', WorkOutSchema);

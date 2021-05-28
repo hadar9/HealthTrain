@@ -22,6 +22,12 @@ const UserDataSchema = new Schema({
     type: Number,
     default: 0,
   },
+  history:{
+    type: Schema.Types.ObjectId,
+    ref: "workouts",
+    }
+
+  
 
 });
 

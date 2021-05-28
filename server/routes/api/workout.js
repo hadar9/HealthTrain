@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const WorkOut = require('../../models/WorkOut ');
+const UserData = require('../../models/UserData');
 
 router.get('/', async (req, res) => {
   try {
@@ -18,12 +19,17 @@ router.post('/addexercise', async (req, res) => {
       name: 'hadar1243542',
       gear: 'ball134324',
       difficultylevel: 'hard',
-      sets: '32',
+      sets: 32,
+      calorieperset:30,
+      totalexcolories:calorieperset*sets,
       time: '4 min',
     };
     const newitem = await WorkOut.findOneAndUpdate(
       { _id: workoutid },
-      { $push: { exercises: exercise } }
+      { $push: { exercises: exercise },
+      $set:{
+        totalcalories:totalcalories+exercise.totalexcolories
+      } }
     );
 
     newitem.save();
@@ -36,12 +42,25 @@ router.post('/addexercise', async (req, res) => {
 router.post('/addworkout', async (req, res) => {
   try {
     const newitem = new WorkOut({
-      exercises: [exrice],
+      exercises: [],
       totaltime: 0,
     });
 
     await newitem.save();
     res.status(200).json(newitem);
+  } catch (e) {
+  }
+});
+router.post('/chooseworkout', async (req, res) => {
+  try {
+    const  {work,user}  = req.body;
+   
+    const newitem = await UserData.findOneAndUpdate(
+      { user: user.id },
+      { $set: { history: work._id } }
+    );
+    await newitem.save();
+    res.status(200).send('choose workout succses!');
   } catch (e) {
     res.status(500).send(e);
   }

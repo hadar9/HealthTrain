@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   workout: null,
+  loading: false,
 };
 
 const reducers = {
   getWorkOuts: (state, action) => {
     state.workout = action.payload;
+    state.loading = true;
     return state;
   },
 };

@@ -1,11 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middleware/auth");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
 const UserData = require("../../models/UserData");
 
+//register new user data
+router.post("/getdata", async (req, res) => {
+   try{
+    const user = req.body.user;
+    const userdata = await UserData.findOne({user:user.id}).populate('history');
+      return res.status(200).json(userdata);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 
 //register new user data

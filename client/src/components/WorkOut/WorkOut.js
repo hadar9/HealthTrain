@@ -10,9 +10,26 @@ import AlarmIcon from '@material-ui/icons/Alarm';
 
 export function WorkOut() {
   const [chooseworkout, setworkout] = useState(null);
+  const userstate = useSelector((state) => state.userReducer.user);
+
+  const chooseWorkout = async (e, work) => {
+    setworkout(work);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    let user = userstate.user;
+    const body = JSON.stringify({
+      work,
+      user,
+    });
+    await axios.post('/api/workout/chooseworkout', body, config);
+  };
+  let workout = useSelector((state) => state.workoutReducer.workout);
 
   useEffect(() => {
-    const getWorkOutss = async () => {
+    const getWorkOut = async () => {
       try {
         const res = await axios.get('/api/workout');
         dispatch(getWorkOuts({ workout: res.data }));
@@ -20,11 +37,9 @@ export function WorkOut() {
         console.log(e);
       }
     };
-    getWorkOutss();
+    getWorkOut();
   }, [chooseworkout]);
   const dispatch = useDispatch();
-
-  let workout = useSelector((state) => state.workoutReducer.workout);
 
   const settings = {
     dots: true,
@@ -49,7 +64,7 @@ export function WorkOut() {
               <Button
                 variant='contained'
                 style={{ marginLeft: '30%', marginBottom: '10px' }}
-                onClick={(e) => setworkout(work)}
+                onClick={(e) => chooseWorkout(e, work)}
               >
                 Start WorkOut
                 <AlarmIcon style={{ marginLeft: '4px' }} />
@@ -59,7 +74,6 @@ export function WorkOut() {
           </div>
         ))
       : null;
-
   let ret = null;
   if (workouts !== null && chooseworkout === null) {
     ret = <Slider {...settings}>{workouts}</Slider>;
