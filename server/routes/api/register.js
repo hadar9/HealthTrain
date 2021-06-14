@@ -12,7 +12,7 @@ const UserData = require("../../models/UserData");
 router.post("/registerUser", async (req, res) => {
     
     try {    
-      const {name, email, password, height, weight, gender, age} = req.body;
+      const {name, email, password, height, weight, goalWeight, gender, age} = req.body;
       let user = await User.findOne({ email });
 
       if (user) {
@@ -43,7 +43,8 @@ router.post("/registerUser", async (req, res) => {
         user: user1._id,
         height,
         weight,
-        gender, 
+        goalWeight,
+        gender,
         age
     });
 

@@ -14,7 +14,7 @@ client.on("connect", function(error) {
 });
 
 client.on("error", function(error) {
-  console.error(error);
+  // console.error(error);
 });
 
 const GET_ASYNC = promisify(client.get).bind(client);

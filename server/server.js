@@ -20,6 +20,7 @@ app.use("/api/diet", require("./routes/api/diet"));
 app.use("/api/foodItem", require("./routes/api/foodItem"));
 app.use("/api/workout", require("./routes/api/workout"));
 app.use("/api/search", require("./routes/api/search"));
+app.use("/api/fooddiaries", require("./routes/api/fooddiaries"));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {

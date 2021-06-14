@@ -14,6 +14,10 @@ const UserDataSchema = new Schema({
     type: Number,
     default: 0,
   },
+  goalWeight: {
+    type: Number,
+    default: 0,
+  },
   gender: {
     type: String,
     default: "Male",

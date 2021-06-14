@@ -8,6 +8,7 @@ router.post("/getdata", async (req, res) => {
    try{
     const user = req.body.user;
     const userdata = await UserData.findOne({user:user.id}).populate('history');
+    console.log(userdata)
       return res.status(200).json(userdata);
     } catch (error) {
       console.log(error);
