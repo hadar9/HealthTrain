@@ -2,16 +2,24 @@ const express = require("express");
 const router = express.Router();
 const FoodDiary = require("../../models/FoodDiary");
 const FoodItem = require("../../models/FoodItem");
-
+const moment = require('moment')
 
 
 // get Diary by id and date
 router.get("/getDiary/:id/:date", async (req, res) => {
     
     try {  
-      const { id, date } = req.params
+      let { id, date } = req.params
+      
+      date = moment(date)
+      date = date.utcOffset(0);
+      date.set({
+       hour: 0,
+       minute: 0,
+       second: 0,
+       millisecond: 0,
+      });
       console.log(id, date) 
-     
       let diary = await FoodDiary.findOne({ user : id, date: date }).populate("nutrition.meals.foodItems.foodItem");
       console.log(diary)
       if(diary){
@@ -28,12 +36,26 @@ router.get("/getDiary/:id/:date", async (req, res) => {
     });
 
     
-// Create Diary
-router.post("/createDiary", async (req, res) => {
+// Create or update Diary
+router.post("/createOrUpdateDiary", async (req, res) => {
     
     try {  
      
-      const { user, date, calories, nutrition} = req.body
+      let { user, date, calories, nutrition} = req.body
+      console.log(req.body)
+      date = moment(date)
+      const query = {
+        user: user,
+        date: date
+      }
+      const diary = await FoodDiary.findOne(query)
+
+      if(diary){
+        if(calories) diary.calories = calories
+        // diary.nutrition.dietNotes ? update diary notes as well
+        diary.nutrition = nutrition
+        return res.status(200).send('Saved New diary')
+      }
 
       const newDiary = new FoodDiary({
         user,
