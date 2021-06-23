@@ -40,6 +40,7 @@ router.get("/getAllFoodItems", async (req, res) => {
           return res.status(200).json({error : "No items in DB"})
       }
       else{
+        console.log(foodItems)
         return res.status(200).json(foodItems)
       }
      
