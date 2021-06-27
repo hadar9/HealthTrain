@@ -2,11 +2,6 @@ const Diet = require("../models/Diet")
 // const FoodItem = require("../models/FoodItem")
 
 const makeNutrition = (foodItems) =>{
-    // const foodItemsArr = [
-    //     {name : "Egg", amountType : "Unit" , defaultAmount : 1, foodCalories : 180, foodType : "Protein", notes: ["Large egg"]},
-    //     {name : "White bread", amountType : "Unit" , defaultAmount : 1, foodCalories : 180, foodType : "Carbs", notes: ["Bread slice"]},
-    //     {name : "Farmer cheese", amountType : "Grams" , foodCalories : 180, foodType : "Protein"},
-    // ]
 
     const foodItemsMapping = foodItems.map(f => ({foodItem : f._id, amount : 1}))
     // console.log(foodItemsMapping)

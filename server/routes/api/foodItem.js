@@ -55,18 +55,26 @@ router.post("/createFoodItem", async (req, res) => {
     
     try {  
      
-      const { name, amountType, defaultAmount, foodCalories, foodType, notes } = req.body
-     
+      const { name, amountType, defaultAmount, foodCalories, foodType } = req.body
+
+      let {notes} = req.body 
+      if(!notes) notes = [] 
+
        const newFoodItem = new FoodItem({
         name, amountType, defaultAmount, foodCalories, foodType, notes
         });
         console.log(newFoodItem)
   
-      let foodItem = await FoodItem.findOne({ name: name, amountType: amountType });
+      let foodItem = await FoodItem.findOne({ 
+                                              name: name, 
+                                              amountType: amountType, 
+                                              defaultAmount: defaultAmount, 
+                                              foodCalories: foodCalories 
+                                            });
 
       console.log(foodItem)
       if(foodItem){
-          return res.status(200).json("This item already exists")
+          return res.status(200).json({error: "This item already exists"})
       }
 
       await newFoodItem.save();

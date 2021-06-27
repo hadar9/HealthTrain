@@ -62,7 +62,6 @@ router.post("/createOrUpdateDiary", async (req, res) => {
       console.log(user, date)
 
       const convertedNutrition = convertFoodItemstToIds(nutrition)
-      console.log(convertedNutrition.meals[0].foodItems)
 
       const query = {
         user: user,
@@ -75,7 +74,7 @@ router.post("/createOrUpdateDiary", async (req, res) => {
         // diary.nutrition.dietNotes ? update diary notes as well
         diary.nutrition = convertedNutrition
         await diary.save()
-        return res.status(200).send('Saved New diary')
+        return res.status(200).send('Saved diary')
       }
 
       const newDiary = new FoodDiary({

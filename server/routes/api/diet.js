@@ -4,6 +4,7 @@ const User = require("../../models/User");
 const Diet = require("../../models/Diet");
 const FoodItem = require("../../models/FoodItem");
 const  createDiet  = require("../../utils/createDiet");
+const convertFoodItemstToIds = require("../../utils/convertFoodItemsToIds");
 
 
 
@@ -84,8 +85,8 @@ router.post("/updateDiet", async (req, res) => {
       if(!diet){
           return res.status(200).json({error : "Something went wrong"})
       }
-
-      diet.nutrition = nutrition
+      const updatedDiet = convertFoodItemstToIds(nutrition)
+      diet.nutrition = updatedDiet
      
       await diet.save();
     
