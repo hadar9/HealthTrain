@@ -5,8 +5,8 @@ const initialState = {
 };
 
 const reducers = {
-  getuserdata: (state, action) => {
-    state.userdata = action.payload;
+  getuserdata: (state, {payload}) => {
+    state.userdata = payload.userdata;
     return state;
   },
 };

@@ -1,110 +1,90 @@
-import { Button } from '@material-ui/core'
-import { Form, Formik } from 'formik';
+import { Button, Input, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import MyTextField from '../../../Input/Input'
 import { useDispatch, useSelector } from 'react-redux';
-// import { setNutrition, updateFood } from '../../../../redux/reducers/UserReducer';
-import MySelect from '../../../Input/MySelect';
-import axios from 'axios';
+import { updateFood } from '../../../../redux/reducers/UserReducer';
+import {SimpleSelect} from '../../../Input/SimpleSelect';
+
 
 export const MealsModalContent = ({foodIndex, handleClose}) => {
     const nutrition = useSelector(state => state.userReducer.nutrition)
-    const caloriesSum = useSelector(state => state.userReducer.caloriesSum)
+    const userReducer = useSelector(state => state.userReducer)
     const dispatch = useDispatch()
-    const [food, setFood] = useState(nutrition.meals[foodIndex[0]].foodItems[foodIndex[1]])
+    const food = nutrition.meals[foodIndex[0]].foodItems[foodIndex[1]]
     const [foodNames, setFoodNames] = useState([])
+    const [currentFoodItem, setCurrentFoodItem] = useState(null)
+    const [name, setName] = useState('')
+    const [amount, setAmount] = useState(food.amount)
 
     useEffect(() => {
-      const fetchFoodItems = async() => {
-        const {data} = await axios.get("/api/foodItem/getAllFoodItems")
-        // console.log(data)
-        let tmp = [...data]
-        tmp = data.map(d => d.name)
-        tmp = tmp.filter(t => t !== food.foodItem.name)
+      // console.log(food)
+      userReducer.foodItems.forEach(f => {
+        if(f._id === food.foodItem._id) {
+          setCurrentFoodItem(f)
+          // console.log(f)
+        }
+      });
+
+        let tmp = userReducer.foodItems
+        tmp.forEach((t, index) => {
+          if(t.name === food.foodItem.name && t.amountType === food.foodItem.amountType) setName(index)
+        });
+        tmp = tmp.map(d => d.name + ' ' + d.amountType[0])
         setFoodNames(tmp)
-      }
-      fetchFoodItems()
-      
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const fieldValues = [
-        {name: "name" , type:  "text", label: "Name: "},
-        {name: "amount" , type:  "number", label: "Amount: "},
-        {name: "amountType" , type:  "text", label: "Scale unit: "},
-        {name: "foodCalories" , type:  "number", label: "Calories: "},
-    ]
 
-    const makeFields = fieldValues.map((f) => {
-        if(f.name === "name"){
-         return (
-          <MySelect
-              key={f.name}
-              name={f.name}
-              label={f.label}
-              values={[food.foodItem.name].concat(foodNames)}
-              value={'0'}
-            />              
-            )    
-        }   
-        else {
-          return ( 
-            <MyTextField  
-              key={f.name}           
-              name={f.name}
-              type={f.type}
-              label={f.label}
-              />
-              )
-        }
-      
-    })
-                       
-     
+  
 
-
-    const onSubmit = (values) => {
+    const onSubmit = (e) => {
         try {
-          // values.notes = ["no notes"]  
-          // dispatch(updateFood({indexes: foodIndex, newItem: values}))
-          // handleClose()
-          console.log(values)
+          // console.log(foodIndex, currentFoodItem)
+          e.preventDefault()
+          const newItem = {
+                            amount,
+                            foodItem: currentFoodItem
+                          } 
+          dispatch(updateFood({indexes: foodIndex, newItem: newItem}))
+          handleClose()
         } catch (e) {
             console.log(e)
         }
     }
 
 
-    // useEffect(() => {
-    //    setFood(nutrition.meals[foodIndex[0]].foodItems[foodIndex[1]])
-    //    console.log(nutrition.meals[foodIndex[0]].foodItems[foodIndex[1]])
-    // }, [foodIndex])
+  const handleChange = (e) => {
+    const newVal = e.target.value 
+    // console.log(foodDiary.foodItems[newVal], newVal)
+    setCurrentFoodItem(userReducer.foodItems[newVal])
+    setName(newVal)
+}
+
+    const formJSX = food ?  
+        <form  onSubmit={(e) =>onSubmit(e)} >
+          <Typography  style={{display: 'inline-block', marginRight: '1rem'}}><b>Name: </b></Typography>
+          <SimpleSelect name="name" values={foodNames} value={name} onChange={(e)=>handleChange(e)} makeUpperTag={true} label='name'/>
+          <br/>
+          <Typography style={{display: 'inline-block', marginRight: '1rem'}}><b>Amount: </b></Typography><Input style={{width:'3rem'}} value={amount} onChange={(e)=>setAmount(e.target.value)} name="amount" type="number"  />
+          <Typography><b>Scale Unit: </b> {currentFoodItem ? currentFoodItem.amountType : null}</Typography>
+          <Typography><b>Calories: </b> {currentFoodItem ? currentFoodItem.foodCalories : null}</Typography>
+          <Typography><b>Default Amount: </b> {currentFoodItem ? currentFoodItem.defaultAmount : null}</Typography>
+          <Typography><b>Food Type: </b> {currentFoodItem ? currentFoodItem.foodType : null}</Typography> 
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            style={{marginTop: '1rem'}}
+          >
+            Confirm
+          </Button>
+        </form> : null 
+
 
     return (
-        <div style={{height: "20rem", width: "15rem" , overflowY: "scroll"}}>
-             {food ?  <Formik
-                initialValues={{
-                  name: "",
-                  amount: food.amount,
-                  amountType: food.foodItem.amountType,
-                  foodCalories: food.foodItem.foodCalories,
-                }}
-                // validationSchema={validationSchema}
-                onSubmit={(values, actions) =>onSubmit(values, actions)}
-              >
-                {(values, isSubmitting) => (
-                  <Form>
-                    {makeFields}
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disabled={isSubmitting}
-                      type="submit"
-                    >
-                      Confirm
-                    </Button>
-                  </Form>
-                )}
-              </Formik> : null}
+      //  overflowY: "scroll"
+        <div style={{height: "15rem", width: "11rem" }}>
+             {formJSX}
         </div>
     )
 }

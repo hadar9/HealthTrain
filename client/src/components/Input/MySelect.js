@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useField } from "formik";
 import {
   InputLabel,
@@ -7,7 +7,7 @@ import {
   FormControl,
 } from "@material-ui/core";
 
-const MySelect = ({ label, ...props }) => {
+const MySelect = ({ label, makeUpperTag, ...props }) => {
   const [field, meta] = useField(props);
  
   const error = meta.touched && meta.error ? true : false;
@@ -18,11 +18,15 @@ const MySelect = ({ label, ...props }) => {
     <>
       <FormControl error={error}>
         <InputLabel>{label}</InputLabel>
-        <Select {...field} {...props} error={error}>
-          {props.values.map((v, index) =>
-              <MenuItem key={v} value={index}>
-                {v}
-            </MenuItem>        
+        <Select {...field} {...props} 
+          error={error}
+           >
+          {props.values.map((v, index) =>{
+               const tagVal = v.slice(-2)
+               const tagJSX = makeUpperTag ? <sup style={{verticalAlign: 'super',fontSize: 'smaller'}}>{tagVal}</sup> : null
+               const value = makeUpperTag ? v.slice(0, -2) : v
+               return <MenuItem key={index} value={index}>{value}{tagJSX}</MenuItem>
+         }
             )}
 
         </Select>

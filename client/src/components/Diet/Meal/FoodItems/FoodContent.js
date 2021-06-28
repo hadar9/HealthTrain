@@ -9,6 +9,7 @@ import { deleteFood } from '../../../../redux/reducers/UserReducer';
 export const FoodContent = ({food, foodIndex, updateMode}) => {
     const nutrition = useSelector(state => state.userReducer.nutrition)
     const dispatch = useDispatch()
+    // console.log(food)
 
     const deleteFoodItem = () => {
         console.log(nutrition.meals)

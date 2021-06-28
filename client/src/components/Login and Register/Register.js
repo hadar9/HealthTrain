@@ -31,6 +31,8 @@ const validationSchema = Yup.object().shape({
     .required("Height is required"),
   weight: Yup.number()
     .required("Weight is required"),
+  goalWeight: Yup.number()
+    .required("Goal is required"),
   age: Yup.number()
     .min(18, "Age must be 18 or higher")
     .max(80, "Age must be 80 or lower")
@@ -54,9 +56,79 @@ const useStyles = makeStyles({
   }
 });
 
+
+
 const Register = () => {
   const classes = useStyles();
   const history = useHistory()
+  const [gender, setGender] = useState('0')
+
+  const fields = [
+    { name: 'name', type: 'text', label: 'Name'},
+    { name: 'email', type: 'text', label: 'Email'},
+     {name: 'password', type: 'text', label: 'Password'},
+    { name: 'repass', type: 'text', label: 'Renter password'},
+     {name: 'height', type: 'number', label: 'Height'},
+     {name: 'weight', type: 'number', label: 'Weight'},
+     {name: 'goalWeight', type: 'number', label: 'Goal Weight'},
+     {name: 'gender', type: 'select', label: 'Gender', values: ["Male", "Female"]},
+     {name: 'age', type: 'number', label: 'Age'}      
+   ]
+   
+   const formFields = fields.map( f => (
+     f.values ? 
+      <div key={f.name}>
+        <MySelect   
+            className={classes.fields}            
+            name={f.name}
+            label={f.label}
+            values={f.values}
+            value={gender}
+            onChange={(e)=>setGender(e.target.value)}
+          />
+          <br />
+      </div>
+      :
+      <div key={f.name}>
+         <MyTextField     
+                    className={classes.fields}           
+                    name={f.name}
+                    type={f.type}
+                    label={f.label}
+                  />
+                  <br />
+      </div>
+   ))
+
+   const onSubmit = async (values, actions) => {
+    try {
+      console.log(values)
+      values.gender = values.gender ? "Female" : "Male"
+      const res = await axios.post("api/register/registerUser", values)
+      console.log(res)
+
+      history.push("/Login")
+      return
+
+
+    } catch (e) {
+      console.log(e);
+    }
+    actions.resetForm();
+  }
+
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    repass: "",
+    height: 0,
+    weight: 0,
+    goalWeight: 0,
+    gender: 0,
+    age: 0,
+  }
+   
 
  
   return (
@@ -68,89 +140,13 @@ const Register = () => {
               Register
             </Typography>
             <Formik
-              initialValues={{
-                name: "",
-                email: "",
-                password: "",
-                repass: "",
-                height: 0,
-                weight: 0,
-                gender: 0,
-                age: 0,
-              }}
+              initialValues={initialValues}
               validationSchema={validationSchema}
-              onSubmit={async (values, actions) => {
-                try {
-                  console.log(values)
-                  values.gender = values.gender ? "Female" : "Male"
-                  const res = await axios.post("api/register/registerUser", values)
-                  console.log(res)
-        
-                  history.push("/Login")
-                  return
- 
-  
-                } catch (e) {
-                  console.log(e);
-                }
-                actions.resetForm();
-              }}
+              onSubmit={onSubmit}
             >
               {(values, isSubmitting) => (
                 <Form>
-                  <MyTextField className={classes.fields} name="name" type="text" label="Name " />
-                  <br />
-                  <MyTextField 
-                    className={classes.fields}           
-                    name="email"
-                    type="email"
-                    label="Email "
-                  />
-                  <br />
-                  <MyTextField   
-                    className={classes.fields}   
-                    name="password"
-                    type="password"
-                    label="Password "
-                  />
-                  <br />
-                  <MyTextField     
-                    className={classes.fields}           
-                    name="repass"
-                    type="password"
-                    label="Renter password "
-                  />
-                  <br />
-                  <MyTextField  
-                    className={classes.fields}              
-                    name="height"
-                    type="number"
-                    label="Height "
-                  />
-                  <br />
-                  <MyTextField       
-                    className={classes.fields}         
-                    name="weight"
-                    type="number"
-                    label="Weight "
-                  />
-                  <br />
-                  <MySelect   
-                    className={classes.fields}            
-                    name="gender"
-                    label="Gender "
-                    values={["Male", "Female"]}
-                    value={'0'}
-                  />
-                  <br />
-                  <MyTextField  
-                    className={classes.fields}              
-                    name="age"
-                    type="number"
-                    label="Age "
-                  />
-                  <br />
-                
+                  {formFields}             
                   <Button
                     className={classes.button}
                     variant="contained"

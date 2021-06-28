@@ -1,16 +1,17 @@
-import { Button, Grid, IconButton, Typography } from '@material-ui/core'
+import {  Grid, Typography } from '@material-ui/core'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { DietNotes } from '../DietNotes'
 import { FoodItems } from './FoodItems/FoodItems'
 // import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 
-export const Meals = ({dietNotes, meals, updateMode }) => {
-
+export const Meals = ({dietNotes, updateMode }) => {
+    const userReducer = useSelector(state => state.userReducer)
   
     return (
         <>
-            {meals.map((m, index) =>
+            {userReducer.nutrition.meals.map((m, index) =>
         
             <Grid container style={{margin : "2rem"}}  spacing={2} key={m.mealName} alignItems="center" justify="flex-start" direction="row">
                 <Grid item xs={12}>

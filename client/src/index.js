@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 import { logout, setToken, setUser } from './redux/reducers/UserReducer';
 
 const persistStorage = JSON.parse(localStorage.getItem('persist:root'));
-console.log(persistStorage);
+// console.log(persistStorage);
 
 // load user when refresh
 if (persistStorage && persistStorage.token !== null) {

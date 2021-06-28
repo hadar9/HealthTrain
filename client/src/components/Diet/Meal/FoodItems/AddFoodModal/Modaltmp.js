@@ -39,6 +39,7 @@ export const Modaltmp = ({ open, anchorEl, handlePopoverClose, mealIndex}) => {
         >
           <AddFoodModalContent 
             mealIndex={mealIndex} 
+            handlePopoverClose={handlePopoverClose}
         /> 
            
         </Popover>

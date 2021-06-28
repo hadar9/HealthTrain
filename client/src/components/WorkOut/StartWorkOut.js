@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ExreciseCard from './ExreciseCard';
 import Countdown from 'react-countdown';
 import timer from '../../images/timer.png';
@@ -21,7 +21,7 @@ export default function StartWorkOut({ work }) {
   return (
     <div>
       <div className='timer'>
-        <img className='timerimage' src={timer} />
+        <img className='timerimage' src={timer} alt='img' />
         <Countdown
           className='timercount'
           date={Date.now() + 60 * 1000 * work.exercises[index].time}

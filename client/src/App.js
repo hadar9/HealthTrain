@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux';
 import { Diet } from './components/Diet/Diet';
 import { FoodDiary } from './components/FoodDiary/FoodDiary';
 import { WorkOut } from './components/WorkOut/WorkOut';
-import './App.css';
+import { FoodSearch } from './components/FoodSearch/FoodSearch';
+
 const App = () => {
   const user = useSelector((state) => state.userReducer.user);
 
@@ -24,6 +25,7 @@ const App = () => {
     { to: '/Diet', name: 'Diet' },
     { to: '/FoodDiary', name: 'FoodDiary' },
     { to: '/WorkOut', name: 'WorkOut' },
+    { to: '/FoodSearch', name: 'FoodSearch' },
   ];
 
   return (
@@ -39,6 +41,7 @@ const App = () => {
               <Route exact path='/Diet' component={Diet} />
               <Route exact path='/WorkOut' component={WorkOut} />
               <Route exact path='/FoodDiary' component={FoodDiary} />
+              <Route exact path='/FoodSearch' component={FoodSearch} />
             </Switch>
           </div>
         </>

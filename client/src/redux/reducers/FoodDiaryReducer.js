@@ -1,13 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
-import { eraseFoodDiaryData } from './FoodDiaryReducer';
-
+import axios from 'axios'
+import moment from 'moment';
 
 
 const initialState = {
-  user: null,
-  token: null,
+  date: moment().format('yyyy-MM-DD'),
   nutrition: null,
   calories: null,
   caloriesSum: null,
@@ -30,49 +27,50 @@ const extraReducers = (builder) => {
   })
 }
 
-
-
-
 const reducers = {
-  setUser: (state, action) => {
-    state.user = jwt_decode(action.payload.user);
-    return state;
-  },
-  logout: (state) => {
-    localStorage.removeItem("persist:root");
-    state = {
-      user: null,
-      token: null,
-      nutrition: null,
-      calories: null,
-      caloriesSum: null,
-      foodItems: []
-    };
-    eraseFoodDiaryData()
-    return state;
-  },
-  setToken: (state, action) => {
-    state.token = action.payload.token;
-    return state;
-  },
-  setNutrition: (state, action) => {
-    state.nutrition = action.payload.nutrition;
-    if(action.payload.calories){
-      state.calories = action.payload.calories;
+  setNutrition: (state, {payload}) => {
+    state.nutrition = payload.nutrition;
+    if(payload.calories){
+      state.calories = payload.calories;
     }
     return state;
   },
-  setCaloriesSum: (state, action) => {
-    state.caloriesSum = action.payload.caloriesSum;
+  setDate: (state, {payload}) => {
+    state = {
+      ...state,
+      date: moment(payload.date).format('yyyy-MM-DD'),
+      nutrition: null,
+      calories: null,
+      caloriesSum: null,
+    }
+    // state.date = moment(payload.date).format('yyyy-MM-DD');
+    return state;
+  },
+  eraseFoodDiaryData: (state, {payload}) => {
+    state = {
+      date:null,
+      nutrition: null,
+      calories: null,
+      caloriesSum: null,
+      foodItems: null
+    }
+    return state;
+  },
+  setFoodItems: (state, {payload}) => {
+    state.foodItems = payload.foodItems;
+    return state;
+  },
+  setCaloriesSum: (state, {payload}) => {
+    state.caloriesSum = payload.caloriesSum;
     return state;
   },
   updateFood: (state, {payload}) => {
     const {newItem, indexes} = payload
     const [mealIndex, foodItemsIndex] = indexes
-    console.log(payload)
     state.nutrition.meals[mealIndex].foodItems[foodItemsIndex] = newItem
     return state;
   },
+
   deleteFood: (state, {payload}) => {
     const {indexes} = payload
     const [mealIndex, foodItemsIndex] = indexes
@@ -81,21 +79,26 @@ const reducers = {
   },
   updateMeal: (state, {payload}) => {
     const {newItem, mealIndex} = payload
-    state.nutrition.meals[mealIndex].foodItems.push(newItem)
+    state.nutrition.meals[mealIndex] = newItem
     return state;
-  }
+  },
+  updateNutritionMeals: (state, {payload}) => {
+    const {newItem} = payload
+    state.nutrition.meals = newItem
+    return state;
+  },
 
 }
 
 
-export const userSlice = createSlice({
-    name: 'userReducer',
+export const foodDiarySlice = createSlice({
+    name: 'foodDiaryReducer',
     initialState: initialState,
     reducers: reducers,
     extraReducers
   })
   
   // Action creators are generated for each case reducer function
-  export const {deleteFood, logout, setCaloriesSum, setNutrition, setToken, setUser, updateFood, updateMeal } = userSlice.actions
+  export const {updateNutritionMeals, eraseFoodDiaryData, deleteFood, setDate, setCaloriesSum, setNutrition,  updateFood, updateMeal } = foodDiarySlice.actions
   
-  export default userSlice.reducer
+  export default foodDiarySlice.reducer
