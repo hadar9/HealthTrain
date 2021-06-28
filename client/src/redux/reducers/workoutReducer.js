@@ -11,6 +11,13 @@ const reducers = {
     state.loading = true;
     return state;
   },
+  eraseWorkoutData: (state) => {
+    state = {
+      workout: null,
+      loading: false,
+    };
+    return state;
+  },
 };
 
 export const workoutSlice = createSlice({
@@ -19,6 +26,6 @@ export const workoutSlice = createSlice({
   reducers: reducers,
 });
 
-export const { getWorkOuts } = workoutSlice.actions;
+export const { getWorkOuts, eraseWorkoutData } = workoutSlice.actions;
 
 export default workoutSlice.reducer;
