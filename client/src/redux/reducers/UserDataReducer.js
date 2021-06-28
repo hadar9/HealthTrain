@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const reducers = {
-  getuserdata: (state, {payload}) => {
+  getuserdata: (state, payload) => {
     state.userdata = payload.userdata;
     return state;
   },

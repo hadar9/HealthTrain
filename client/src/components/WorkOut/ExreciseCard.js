@@ -75,11 +75,13 @@ export default function ExreciseCard({ exc, parentcomp }) {
 
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image={images[exc.name.split(' ').join('_')]}
-        title='Paella dish'
-      />
+      {images[exc.name.split(' ').join('_')] ? (
+        <CardMedia
+          className={classes.media}
+          image={images[exc.name.split(' ').join('_')]}
+          title='Paella dish'
+        />
+      ) : null}
       {parentcomp !== 'start' ? (
         <CardContent>
           <CardContent>
