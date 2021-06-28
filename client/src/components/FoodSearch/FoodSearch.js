@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
 import { Typography, Input, Button } from '@material-ui/core'
 import {SearchResult} from './SearchResult/SearchResult'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import axios from 'axios'
 
 export const FoodSearch = () => {
     const [searchVal, setSearchVal] = useState('')
-    const [searchResults, setSearchResults] = useState([])
+    const [searchResult, setSearchResult] = useState()
+    const [msg, setMsg] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const title = <Typography style={{margin: "2rem"}} align="center" variant="h5"><b>Food Search</b></Typography>
 
     const submitSearch = async (e) => {
         try {
+            setLoading(true)
             e.preventDefault()
-            const {data} = await axios.get('api/...')
+            const {data} = await axios.get(`api/search/${searchVal}`)
             console.log(data)
-            if(data.length){
-                setSearchResults(data)
-            }
+            setSearchResult(data)
+            setLoading(false)
+            
         } catch (e) {
             console.log(e)
         }
@@ -28,13 +32,25 @@ export const FoodSearch = () => {
         <Button size='small' style={{marginLeft: '1rem'}} color='primary' variant='contained' type='submit'>Search Food</Button>
     </form>
 
-    const searchResultsMapping = searchResults.length ? searchResults.map(s=><SearchResult resultItem={s} />) : null
+    const loadingJsx = <div style={{textAlign: 'center'}} ><CircularProgress /></div>
+
+    const searchResultsMapping = searchResult ? <SearchResult 
+                                                    setMsg={setMsg} 
+                                                    resultItem={searchResult}
+                                                    setLoading={setLoading}
+                                                     /> : null
+
+    const msgJSX = <Typography style={{fontWeight: 'bold'}} align='center' variant='body1'>{msg}</Typography>
+
+
 
     return (
         <div>
             {title}
             {formJSX}
             {searchResultsMapping}
+            {!loading ? msgJSX : null}
+            {loading ? loadingJsx : null}
 
         </div>
     )

@@ -23,8 +23,9 @@ const SET_ASYNC = promisify(client.set).bind(client);
 router.get("/:item", async (req, res) => {
   try {
     const item = req.params.item;
-    const itemData = await GET_ASYNC(item);
-
+    console.log('sdggssggssggsds')
+    // const itemData = await GET_ASYNC(item);
+    const itemData = null
     if (itemData) {
       console.log("Cached Result");
       res.status(200).json(JSON.parse(itemData));
@@ -32,14 +33,15 @@ router.get("/:item", async (req, res) => {
       const config = {
         method: "get",
         url: "https://api.api-ninjas.com/v1/nutrition?query=" + item,
-        headers: { "x-api-key": "BvPSayLKTLNeFFuumyZgag==VszVQHoFubcjbHmo" },
+        headers: { "x-api-key": "YvhBqBIk3QXKCxVOQ78PfwuvImRk052WNeRFe3jv" },
       };
       const response = await axios(config);
       console.log(response.data[0]);
-      const saveResult = await SET_ASYNC(
-        item,
-        JSON.stringify(response.data[0])
-      );
+      
+      // const saveResult = await SET_ASYNC(
+      //   item,
+      //   JSON.stringify(response.data[0])
+      // );
       res.status(200).json(response.data[0]);
     }
   } catch (e) {
