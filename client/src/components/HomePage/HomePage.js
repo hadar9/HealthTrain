@@ -22,18 +22,20 @@ export const HomePage = () => {
   }, []);
 
   useEffect(async () => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    let user = userstate.user;
-    const body = JSON.stringify({
-      user,
-    });
-    const res = await axios.post('/api/userdata/getdata', body, config);
-    dispatch(getuserdata(res.data));
-  }, []);
+    if (userstate) {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      let user = userstate.user;
+      const body = JSON.stringify({
+        user,
+      });
+      const res = await axios.post('/api/userdata/getdata', body, config);
+      dispatch(getuserdata(res.data));
+    }
+  }, [userstate]);
   return (
     <div className='Homepage'>
       {userdata ? (
