@@ -1,0 +1,64 @@
+.homepagedata {
+  border: 2px solid black;
+  width: 450px;
+  text-align: center;
+  color: black;
+  margin-top: 5%;
+}
+.homepagehistory {
+  position: fixed;
+  top: 17%;
+  right: 35%;
+}
+
+.workout-title {
+  margin: auto;
+  width: 500px;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+.workout {
+  margin-top: 2%;
+}
+
+.showworkout-0 {
+  background-color: #343a40;
+}
+.showworkout-1 {
+  background-color: #dacdcd41;
+}
+.showworkout-2 {
+  background-color: #343a40;
+}
+.showworkout-3 {
+  background-color: #dacdcd41;
+}
+.showworkout-4 {
+  background-color: #343a40;
+}
+.showworkout-5 {
+  background-color: #dacdcd41;
+}
+.currentexc {
+  position: absolute;
+  width: 50%;
+}
+.timer {
+  margin-top: 2%;
+  float: right;
+  margin-right: 30%;
+}
+.timerimage {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+}
+.timercount {
+  border: 2px solid black;
+  margin-top: 25%;
+  position: absolute;
+  width: 20%;
+  text-align: center;
+  font-size: xx-large;
+  font-style: oblique;
+}
